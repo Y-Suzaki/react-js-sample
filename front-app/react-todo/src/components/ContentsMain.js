@@ -16,6 +16,16 @@ export default  class ContentsMain extends React.Component{
         }
     }
 
+    // ライフサイクルメソッド（DOM生成後）
+    componentDidMount() {
+        console.log("componentDidMount:ComponentsMain")
+    }
+
+    // ライフサイクルメソッド（DOM破棄前）
+    componentWillUnmount() {
+        console.log("componentWillUnmount:ComponentsMain")
+    }
+
     // Child Componentにpropsを通して渡される
     // 子のComponent側で振る舞いだけ決めておき、状態は親側からpropsとして渡すことができれば、
     // 部品を共通化しても色々表示を変えることができる。
