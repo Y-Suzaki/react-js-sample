@@ -1,31 +1,25 @@
 import React from 'react';
+import TodoForm from './components/TodoForm'
+import TodoList from './components/TodoList'
 
+// Gridレイアウトと、各Componentの呼び出し程度のHTMLにしておく。
+// 各Componentの操作によって、Component外のデータに影響を及ぼす場合、本classにメソッドを定義する。
 export default class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            todos: ["default-1", "default-2"],
-            newTodo: "",
-            errorMsg: ""
+            todos: ["default-1", "default-2"]
         }
     }
 
-    handleChange(event) {
-        this.setState({newTodo: event.target.value});
-    }
-
-    addTodo() {
-        this.setState({errorMsg: ""});
-        if (this.state.newTodo === "") {
-            this.setState({errorMsg: "Not allowed empty."});
-            return;
-        }
+    // newTodoは子Component側から渡される
+    addTodo(newTodo) {
         const todos = this.state.todos;
-        todos.push(this.state.newTodo);
+        todos.push(newTodo);
         this.setState({newTodo: todos});
-        this.setState({newTodo: ""});
     }
 
+    // indexは子Component側から渡される
     delTodo(index) {
         const todos = this.state.todos;
         // splice(index, 個数)で、指定のindex位置から指定個数の要素を削除する
@@ -36,23 +30,9 @@ export default class App extends React.Component{
     render() {
         return (
             <div className="App">
-                <h3>Welcome ToDo Application</h3>
-                <input value={this.state.newTodo} placeholder="Input..." onChange={this.handleChange.bind(this)}/>
-                <button onClick={this.addTodo.bind(this)}>Add</button>
-                <span>{this.state.newTodo}</span><span>{this.state.errorMsg}</span>
-
-                <h5>Todo List</h5>
-                <ul>
-                    {
-                        this.state.todos.map((todo, index) => {
-                            return (
-                                <li key={index}>{todo}
-                                    <button onClick={this.delTodo.bind(this, index)}>Del</button>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+                {/* Todoリスト操作用のメソッド、Todoリストのデータをpropsとして渡しておく */}
+                <TodoForm addTodoParent={this.addTodo.bind(this)}/>
+                <TodoList delTodoParent={this.delTodo.bind(this)} todos={this.state.todos}/>
             </div>
         );
     }
