@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Component単体の動作はclass内で定義する。
 // Todoリストに追加、削除のような他のデータに作用を及ぼすような操作については、
@@ -29,13 +30,18 @@ export default class TodoForm extends React.Component {
         // ローカルストレージに保存（ブラウザリロードしても保存されている）
         // 配列や連想配列の場合、JSON文字列にencodeしてから格納すること
         localStorage.setItem("todos", JSON.stringify(todos));
-
         this.setState({newTodo: ""});
+
+        // 追加後、Todoリスト画面に戻る
+        this.props.history.push("/");
     }
 
     render() {
         return (
             <div>
+                {/* Todoリスト画面に戻るリンクを追加 */}
+                <Link to="/">Back to Todo List</Link>
+
                 <h3>Welcome ToDo Application</h3>
                 <input value={this.state.newTodo} placeholder="Input..." onChange={this.handleChange.bind(this)}/>
                 <button onClick={this.addTodo.bind(this)}>Add</button>

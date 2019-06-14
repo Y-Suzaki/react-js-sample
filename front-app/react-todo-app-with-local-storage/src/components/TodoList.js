@@ -6,9 +6,14 @@ export default class TodoList extends React.Component{
         this.state = {todos: []};
     }
 
+    // 画面繊維と共にDOMの再生成が行われるため、componentDidMount最新データの表示が可能
     componentDidMount() {
         const todos = JSON.parse(localStorage.getItem("todos")) || [];
         this.setState({todos: todos});
+    }
+
+    addTodo() {
+        this.props.history.push("/todos/add");
     }
 
     delTodo(index) {
@@ -24,6 +29,7 @@ export default class TodoList extends React.Component{
     render() {
         return (
             <div>
+                <button onClick={this.addTodo.bind(this)}>Add New Todo -></button>
                 <h5>Todo List</h5>
                 <ul>
                     {
