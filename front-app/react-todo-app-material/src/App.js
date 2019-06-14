@@ -30,17 +30,23 @@ export default class App extends React.Component {
       return(
           <div>
             <h5>Todo List</h5>
-            <ul>
+            <List>
                 {
                     this.state.todos.map(todo => {
                         return (
-                            <li key={todo.id}>{todo.text}
-                                <button onClick={this.delTodo.bind(this, todo.id)}>Del</button>
-                            </li>
+                            <div>
+                                <ListItem key={todo.id}>
+                                    <ListItemText>{todo.text}</ListItemText>
+                                    <IconButton variant="fab" area-label="delete" onClick={this.delTodo.bind(this, todo.id)}>
+                                        <DeleteIcon/>
+                                    </IconButton>
+                                </ListItem>
+                                <Divider/>
+                            </div>
                         )
                     })
                 }
-            </ul>
+            </List>
           </div>
       )
     }
