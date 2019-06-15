@@ -1,0 +1,175 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CodePipeline create
+
+Parameters:
+  GitHubToken:
+    Type: String
+    NoEcho: true
+  S3BucketWebApp:
+    Type: String
+    Default: ys-dev-web-todo-list
+
+Resources:
+  S3BucketArtifact:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ys-dev-web-codepipeline-artifacts
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+        - Status: Enabled
+          ExpirationInDays: 2
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  # LogGroup of CWLogs which CodeBuild uses.
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/codebuild/ys-dev-web-app-build
+      RetentionInDays: 3
+  # IAM Role which CodeBuild container uses.
+  CodeBuildServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: codebuild.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+        - PolicyName: codepipeline-service
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Resource: !Sub arn:aws:s3:::${S3BucketArtifact}*
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+              - Resource: !Sub arn:aws:s3:::${S3BucketWebApp}*
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+              - Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:*
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+              - Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroup}:*
+                Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+  # IAM Role which CodeBPipeline uses.
+  CodePipelineServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: codepipeline-service
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Resource: !Sub arn:aws:s3:::${S3BucketArtifact}*
+                Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+              - Resource: "*"
+                Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:StopBuild
+                  - codebuild:BatchGet*
+                  - codebuild:Get*
+                  - codebuild:List*
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: |
+          version: 0.2
+          phases:
+            install:
+              runtime-versions:
+                nodejs: 10
+            pre_build:
+              commands:
+                - aws s3 rm s3://ys-dev-web-todo-list --recursive
+            build:
+              commands:
+                - cd front-app/react-todo-app-material
+                - npm install
+                - npm run build
+                - aws s3 cp build s3://ys-dev-web-todo-list --recursive
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: "aws/codebuild/standard:2.0"
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: AWS_DEFAULT_REGION
+            Value: !Ref AWS::Region
+      Name: ys-dev-web-app-build
+      ServiceRole: !Ref CodeBuildServiceRole
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: ys-dev-web-todo-list
+      RoleArn: !GetAtt CodePipelineServiceRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref S3BucketArtifact
+      Stages:
+        - Name: source
+          Actions:
+            - Name: github-source-action
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Version: 1
+                Provider: GitHub
+              OutputArtifacts:
+                - Name: s3-source-output
+              Configuration:
+                Owner: Y-Suzaki
+                Repo: react-js-sample
+                Branch: master
+                OAuthToken: !Ref GitHubToken
+              RunOrder: 1
+        - Name: build
+          Actions:
+            - Name: app-build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: 1
+                Provider: CodeBuild
+              Configuration:
+                ProjectName: !Ref CodeBuild
+              InputArtifacts:
+                - Name: s3-source-output
+              OutputArtifacts:
+                - Name: app-build-output
+              RunOrder: 1
