@@ -20,8 +20,15 @@ export default class TodoList extends React.Component{
 
     // 画面繊維と共にDOMの再生成が行われるため、componentDidMount最新データの表示が可能
     componentDidMount() {
-        const todos = JSON.parse(localStorage.getItem("todos")) || [];
-        this.setState({todos: todos});
+        console.log("componentDidMount");
+        // const todos = JSON.parse(localStorage.getItem("todos")) || [];
+        // this.setState({todos: todos});
+
+        // API経由でTodoリストの取得
+        fetch("http://localhost:8080/todos")
+            .then(response => response.json())
+            .then(todos => this.setState({todos: todos}))
+            .catch(error => console.error(error));
     }
 
     addTodo() {
@@ -29,13 +36,21 @@ export default class TodoList extends React.Component{
     }
 
     delTodo(index) {
-        const todos = this.state.todos;
-        // splice(index, 個数)で、指定のindex位置から指定個数の要素を削除する
-        todos.splice(index, 1);
-        this.setState({todos: todos});
-
         // ローカルストレージに保存（ブラウザリロードしても保存されている）
-        localStorage.setItem("todos", JSON.stringify(this.state.todos));
+        // localStorage.setItem("todos", JSON.stringify(this.state.todos));
+
+        // API経由でTodoリストの削除
+        const request = {
+            method: "DELETE"
+        };
+        // 変数は``で囲むと、${}で変換できる
+        fetch(`http://localhost:8080/todos/${index}`, request)
+            .then(() => {
+                let todos = this.state.todos;
+                todos = todos.filter(todo => todo.id !== index);
+                this.setState({todos: todos});
+            })
+            .catch(error => console.error(error));
     }
 
     render() {
@@ -51,12 +66,12 @@ export default class TodoList extends React.Component{
                 </AppBar>
                 <List>
                     {
-                        this.state.todos.map((todo, i) => {
+                        this.state.todos.map((todo) => {
                             return (
-                                <div>
-                                    <ListItem key={i}>
-                                        <ListItemText>{todo}</ListItemText>
-                                        <IconButton onClick={this.delTodo.bind(this, i)}>
+                                <div key={todo.id}>
+                                    <ListItem key={todo.id}>
+                                        <ListItemText>{todo.text}</ListItemText>
+                                        <IconButton onClick={this.delTodo.bind(this, todo.id)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </ListItem>
@@ -67,7 +82,7 @@ export default class TodoList extends React.Component{
                     }
                 </List>
                 <div className="bottom-right">
-                    <Fab variant="fab" color="primary" aria-label="Add" onClick={this.addTodo.bind(this)}>
+                    <Fab color="primary" aria-label="Add" onClick={this.addTodo.bind(this)}>
                         <AddIcon/>
                     </Fab>
                 </div>

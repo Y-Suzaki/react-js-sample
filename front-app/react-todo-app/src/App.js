@@ -12,11 +12,20 @@ export default class App extends React.Component{
         }
     }
 
+    componentDidMount() {
+        const todos = JSON.parse(localStorage.getItem("todos")) || [];
+        this.setState({todos: todos});
+    }
+
     // newTodoは子Component側から渡される
     addTodo(newTodo) {
         const todos = this.state.todos;
         todos.push(newTodo);
         this.setState({newTodo: todos});
+
+        // ローカルストレージに保存（ブラウザリロードしても保存されている）
+        // 配列や連想配列の場合、JSON文字列にencodeしてから格納すること
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
     }
 
     // indexは子Component側から渡される
@@ -25,6 +34,9 @@ export default class App extends React.Component{
         // splice(index, 個数)で、指定のindex位置から指定個数の要素を削除する
         todos.splice(index, 1);
         this.setState({todos: todos});
+
+        // ローカルストレージに保存（ブラウザリロードしても保存されている）
+        localStorage.setItem("todos", JSON.stringify(this.state.todos));
     }
 
     render() {

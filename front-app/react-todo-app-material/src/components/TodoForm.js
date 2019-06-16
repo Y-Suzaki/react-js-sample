@@ -34,16 +34,29 @@ export default class TodoForm extends React.Component {
             return;
         }
 
-        const todos = JSON.parse(localStorage.getItem("todos")) || [];
-        todos.push(this.state.newTodo);
+        // const todos = JSON.parse(localStorage.getItem("todos")) || [];
+        // todos.push(this.state.newTodo);
+        //
+        // // ローカルストレージに保存（ブラウザリロードしても保存されている）
+        // // 配列や連想配列の場合、JSON文字列にencodeしてから格納すること
+        // localStorage.setItem("todos", JSON.stringify(todos));
+        // this.setState({newTodo: ""});
 
-        // ローカルストレージに保存（ブラウザリロードしても保存されている）
-        // 配列や連想配列の場合、JSON文字列にencodeしてから格納すること
-        localStorage.setItem("todos", JSON.stringify(todos));
-        this.setState({newTodo: ""});
-
-        // 追加後、Todoリスト画面に戻る
-        this.props.history.push("/");
+        // API経由でTodoリストの保存
+        const request = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({text: this.state.newTodo})
+        };
+        // 非同期呼び出しなので、コールバック関数内でhistory.push()する必要がある。
+        fetch("http://localhost:8080/todos", request)
+            .then(() => {
+                this.setState({newTodo: ""});
+                this.props.history.push("/");
+            })
+            .catch(error => console.error(error));
     }
 
     render() {
