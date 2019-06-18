@@ -25,7 +25,11 @@ export default class TodoList extends React.Component{
         // this.setState({todos: todos});
 
         // API経由でTodoリストの取得
-        fetch("http://localhost:8080/todos")
+        const request = {
+            mode: 'cors'
+        };
+
+        fetch("https://61fj6714t8.execute-api.us-west-2.amazonaws.com/api/todos", request)
             .then(response => response.json())
             .then(todos => this.setState({todos: todos}))
             .catch(error => console.error(error));
