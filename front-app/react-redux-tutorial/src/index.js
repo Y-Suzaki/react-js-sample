@@ -5,11 +5,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 // reduxに必要なComponent
 import counterReducer from './reducers/counterReducer';
+import userReducer from './reducers/userReducer';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 // storeの生成
-const store = createStore(counterReducer);
+const store = createStore(userReducer);
 
 // 一番外側で<Provider>を生成する
 ReactDOM.render(
