@@ -11,7 +11,10 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 // storeの生成
-const store = createStore(todoReducer);
+// React DevToolsの適用
+const store = createStore(
+    todoReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 // 一番外側で<Provider>を生成する
 ReactDOM.render(
