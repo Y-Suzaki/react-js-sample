@@ -6,11 +6,12 @@ import * as serviceWorker from './serviceWorker';
 // reduxに必要なComponent
 import counterReducer from './reducers/counterReducer';
 import userReducer from './reducers/userReducer';
+import todoReducer from './reducers/todoReducer';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 // storeの生成
-const store = createStore(userReducer);
+const store = createStore(todoReducer);
 
 // 一番外側で<Provider>を生成する
 ReactDOM.render(
