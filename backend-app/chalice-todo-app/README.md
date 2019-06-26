@@ -1,5 +1,6 @@
 ## Reference sites
-* https://github.com/aws/chalice
+* [Github](https://github.com/aws/chalice)
+* [Githubの日本語](https://githubja.com/aws/chalice9)
 
 ## Set up
 ### Create AWS Configure

@@ -1,4 +1,6 @@
 from chalice import Chalice
+from  service.todo_service import ToDoService
+
 
 app = Chalice(app_name='chalice-todo-app')
 
@@ -6,6 +8,46 @@ app = Chalice(app_name='chalice-todo-app')
 @app.route('/')
 def index():
     return {'hello': 'world'}
+
+
+@app.route('/todos', methods=['POST'], cores=True)
+def todos():
+    service = ToDoService()
+    service.add('')
+
+
+@app.route('/todos', methods=['GET'], cors=True)
+def todos():
+    return [
+        {
+            "id": 1,
+            "text": "React basis implements"
+        },
+        {
+            "id": 2,
+            "text": "React material ui"
+        },
+        {
+            "id": 3,
+            "text": "Access rest api to json server"
+        },
+        {
+            "text": "fetch api",
+            "id": 4
+        },
+        {
+            "text": "9999999999999999",
+            "id": 5
+        },
+        {
+            "text": "777",
+            "id": 7
+        },
+        {
+            "text": "555",
+            "id": 8
+        }
+    ]
 
 
 # The view function above will return {"hello": "world"}
