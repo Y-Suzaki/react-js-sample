@@ -14,3 +14,12 @@ export const delTodo = (id) => {
         id
     }
 };
+
+// thunkを使った非同期用のAction
+export const addTodoAsync = (text) => {
+    return (dispatch) => {
+        setTimeout(() => {
+            dispatch(addTodo(text));
+        }, 3000)
+    }
+};

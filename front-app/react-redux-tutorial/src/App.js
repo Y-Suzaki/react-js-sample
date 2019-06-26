@@ -3,7 +3,7 @@ import './App.css';
 // react-reduxに必要なimport
 import {increment, decrement} from './actions/counterAction';
 import {setName, setAge} from './actions/userAction';
-import {addTodo, delTodo} from './actions/todoAction';
+import {addTodo, delTodo, addTodoAsync} from './actions/todoAction';
 import {connect} from 'react-redux';
 // react-bootstrapに必要なimport
 import { Button, FormText } from 'react-bootstrap';
@@ -25,6 +25,10 @@ class App extends React.Component {
         this.props.delTodo(id);
     }
 
+    addTodoAsyncClicked() {
+        this.props.addTodoAsync("Async NewText");
+    }
+
     render() {
         return (
             <div className="App">
@@ -40,7 +44,8 @@ class App extends React.Component {
                     {/*<Button onClick={this.setAgeForClicked.bind(this)}>Set Age</Button>*/}
                     {/*{this.props.age}*/}
                 {/*</div>*/}
-                <Button onClick={this.addTodoClicked.bind(this)}>Add New</Button>
+                <Button onClick={this.addTodoClicked.bind(this)}>Add New</Button><br/>
+                <Button onClick={this.addTodoAsyncClicked.bind(this)}>Async Add New</Button>
                 <ul>
                     {console.log(this.props)}
                     {
@@ -96,7 +101,8 @@ const mapDispatchToPropsUser = dispatch => {
 const mapDispatchToPropsTodo = dispatch => {
     return {
         addTodo: (text) => dispatch(addTodo(text)),
-        delTodo: (id) => dispatch(delTodo(id))
+        delTodo: (id) => dispatch(delTodo(id)),
+        addTodoAsync: (text) => dispatch(addTodoAsync(text))
     }
 };
 
