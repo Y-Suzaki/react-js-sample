@@ -44,7 +44,6 @@ class App extends React.Component {
                 <ul>
                     {console.log(this.props)}
                     {
-
                         this.props.todos.map(todo => {
                             return (
                                 <li key={todo.id}>
@@ -76,7 +75,7 @@ const mapStateToPropsUser = state => {
 
 const mapStateToPropsTodo = state => {
     return {
-        todos: state
+        todos: state.todos
     }
 };
 

@@ -1,7 +1,8 @@
 const initState = [];
 
 const todoReducer = (state = initState, action) => {
-    console.log(state);
+    // console.log(state);
+    // console.log(action);
 
     switch (action.type) {
         case 'ADD':
