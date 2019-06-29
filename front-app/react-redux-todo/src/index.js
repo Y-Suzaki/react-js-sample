@@ -6,15 +6,23 @@ import * as serviceWorker from './serviceWorker';
 import createStore from './Store';
 import {Provider} from 'react-redux';
 
-const store = createStore();
+// connected-react-routerの使用に必要なimport
+import { createBrowserHistory } from "history"
+import { ConnectedRouter } from 'connected-react-router'
+import {Switch, Router} from "react-router-dom";
+
+const history = createBrowserHistory();
+const store = createStore(history);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ConnectedRouter history={history}>
+            <Switch>
+                <App/>
+            </Switch>
+        </ConnectedRouter>
     </Provider>,
-    document.getElementById('root'));
+    document.getElementById('root')
+);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
