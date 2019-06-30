@@ -1,6 +1,7 @@
 // reduxに必要なComponent
 import { createStore as reduxCreateStore, applyMiddleware, combineReducers, compose } from "redux";
 import todoReducer from './reducers/TodoReducer';
+import userReducer from './reducers/UserReducer';
 
 // redux-thunkに必要なComponent
 import thunk from 'redux-thunk';
@@ -17,7 +18,8 @@ export default function createStore(history) {
                 // Router用の状態もStoreで管理
                 router: connectRouter(history),
                 // ここの第一引数に設定した「todos」は、stateの属性名になる
-                todos: todoReducer
+                todos: todoReducer,
+                users: userReducer
             }
         ),
         composeEnhancers(

@@ -1,13 +1,44 @@
 import React from 'react';
+import {getUsers} from '../actions/UerAsyncAction';
+import connect from "react-redux/es/connect/connect";
 
 class Setting extends React.Component {
+    componentDidMount() {
+        this.props.gerUsers();
+    }
+
     render() {
         return (
             <div>
                 <h4>Admin Setting</h4>
+                <ul>
+                    {console.log(this.props)}
+
+                    {
+                        this.props.users.users.map((user) => {
+                            return (
+                                <li key={user.id}>{user.id}:{user.name}</li>
+                            )
+                        })
+                    }
+                </ul>
             </div>
         )
     }
 }
 
-export default Setting;
+const mapStateToProps = (state) => {
+    return {
+        users: state.users
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        gerUsers: () => {
+            dispatch(getUsers())
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Setting);
