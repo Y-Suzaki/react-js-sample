@@ -1,10 +1,10 @@
 import React from 'react';
-import {getUsers} from '../actions/UerAsyncAction';
+import {getUsers, getAsyncUsers} from '../actions/UerAsyncAction';
 import connect from "react-redux/es/connect/connect";
 
 class Setting extends React.Component {
     componentDidMount() {
-        this.props.gerUsers();
+        this.props.getAysncUsers();
     }
 
     render() {
@@ -35,9 +35,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        gerUsers: () => {
-            dispatch(getUsers())
-        }
+        gerUsers: () => dispatch(getUsers()),
+        getAysncUsers: () => dispatch(getAsyncUsers())
     }
 };
 
