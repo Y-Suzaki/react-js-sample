@@ -12,5 +12,8 @@ export const getAsyncUsers = () => {
             .then(data => {
                 dispatch({type: 'FETCHED_USER', users: data})
             })
+            .catch(error => {
+                dispatch({type: 'ERROR_USER', error})
+            })
     };
 };
