@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Main from './components/Main';
 import Setting from './components/Setting';
+import SettingDetail from './components/SettingDetail';
 import NoMatch from './components/NoMatch';
 import { Button } from 'react-bootstrap';
 
@@ -26,7 +27,8 @@ class App extends React.Component {
                 </ul>
                 <Switch>
                     <Route path='/' component={Main} exact={true}/>
-                    <Route path='/setting' component={Setting}/>
+                    <Route path='/setting' component={Setting} exact={true}/>
+                    <Route path='/setting/:id' component={SettingDetail}/>
                     <Route component={NoMatch}/>
                 </Switch>
             </div>

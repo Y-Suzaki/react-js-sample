@@ -15,7 +15,7 @@ class TodoItem extends React.Component {
 
     render() {
         return (
-            <li>
+            <li key={this.props.todo.id}>
                 {this.props.todo}
                 <Button onClick={this.clickDeleteTodo.bind(this, this.props.index)}>DELETE</Button>
             </li>

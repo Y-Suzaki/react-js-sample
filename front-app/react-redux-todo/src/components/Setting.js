@@ -1,6 +1,7 @@
 import React from 'react';
 import {getUsers, getAsyncUsers} from '../actions/UerAsyncAction';
 import connect from "react-redux/es/connect/connect";
+import { Link, NavLink } from "react-router-dom";
 
 class Setting extends React.Component {
     componentDidMount() {
@@ -17,7 +18,11 @@ class Setting extends React.Component {
                     {
                         this.props.users.users.map((user) => {
                             return (
-                                <li key={user.id}>{user.id}:{user.name}</li>
+                                <li key={user.id}>
+                                    <Link to={`/setting/${user.id}`}>
+                                        {user.id}:{user.name}
+                                    </Link>
+                                </li>
                             )
                         })
                     }
