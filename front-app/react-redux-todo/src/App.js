@@ -27,7 +27,7 @@ class App extends React.Component {
     render() {
         return (
             <Container>
-                <Row>
+                <Row noGutters={true}>
                     <Col>
                         <Header/>
                     </Col>
