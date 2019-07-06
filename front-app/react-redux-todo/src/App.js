@@ -4,6 +4,7 @@ import Main from './components/Main';
 import Setting from './components/Setting';
 import SettingDetail from './components/SettingDetail';
 import Header from './components/Header';
+import HeaderRight from './components/HeaderRight';
 import Menu from './components/Menu';
 import NoMatch from './components/NoMatch';
 import { Button } from 'react-bootstrap';
@@ -26,17 +27,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <Container>
-                <Row noGutters={true}>
-                    <Col>
+            <Container fluid className="noPadding">
+                <Row>
+                    <Col xs={10} className="headerLeftPadding">
                         <Header/>
+                    </Col>
+                    <Col className="headerRightPadding">
+                        <HeaderRight/>
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col xs={2} md={2} className="menuPadding">
                         <Menu/>
                     </Col>
-                    <Col xs={10}>
+                    <Col>
                         <Switch>
                             <Route path='/' component={Main} exact={true}/>
                             <Route path='/setting' component={Setting} exact={true}/>
