@@ -69,9 +69,47 @@ function App() {
                                 Input Email
                             </Form.Text>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Text className="text-muted">
+                                Input Password
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Check type="checkbox" label="Check me out" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Select Box</Form.Label>
+                            <Form.Control as="select">
+                                <option>001</option>
+                                <option>002</option>
+                                <option>003</option>
+                            </Form.Control>
+                        </Form.Group>
                         <Button variant="primary">
                             Submit
                         </Button>
+                    </Form>
+                    <hr/>
+                    <Form>
+                        {/* Labelを横並びさせる場合、Grid Layoutを使う */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="2">
+                                Email
+                            </Form.Label>
+                            <Col sm="10">
+                                <Form.Control plaintext readOnly defaultValue="email@example.com" />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="2">
+                                Email
+                            </Form.Label>
+                            <Col sm="10">
+                                <Form.Control type="password" placeholder="Password" />
+                            </Col>
+                        </Form.Group>
                     </Form>
                 </Col>
             </Row>
