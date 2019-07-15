@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Badge from 'react-bootstrap/Badge'
+import { Link } from "react-router-dom";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 class CarSearch extends React.Component {
     constructor(props) {
@@ -71,20 +73,23 @@ class CarSearch extends React.Component {
                     </Form.Row>
                 </Form>
                 <ListGroup variant="flush">
-                    <ListGroup.Item action>
-                        <span className='h5 mr-2'>XXXXXXXX</span>
-                        <Badge pill variant="primary">
-                            Primary
-                        </Badge>
-                        <div className='d-sm-flex'>
-                            <div className='mr-2'>CCCCC</div>
-                            <div className='mr-2'>AAAAAAAAAa</div>
-                            <div className='text-muted'>Sensor1 / Sensor2 / Sensor3 / Sensor4</div>
-                        </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                    <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                    <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                    {
+                        this.state.cars.map(car => {
+                            return (
+                                <ListGroup.Item action as={Link} to='/car'>
+                                    <span className='h5 mr-2'>{car.carType}</span>
+                                    <Badge pill variant="primary">
+                                        {car.status}
+                                    </Badge>
+                                    <div className='d-sm-flex'>
+                                        <div className='mr-2'>{car.carSerialNo}</div>
+                                        <div className='mr-2'>{car.office}</div>
+                                        <div className='text-muted'>Sensor1 / Sensor2 / Sensor3 / Sensor4</div>
+                                    </div>
+                                </ListGroup.Item>
+                            )
+                        })
+                    }
                 </ListGroup>
             </div>
         )
