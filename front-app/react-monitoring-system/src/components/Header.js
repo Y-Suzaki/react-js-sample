@@ -13,9 +13,10 @@ import UserAccount from './UserAccount';
 class Header extends React.Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark" defaultActiveKey="link-1">
+            <Navbar bg="dark" variant="dark">
                 <Navbar.Brand as={Link} to='/' exact={true}>TS-System</Navbar.Brand>
                 <Nav className="mr-auto">
+                    <Nav.Link as={Link} to='/' exact={true}　eventKey="link-2">Dashboard</Nav.Link>
                     <Nav.Link as={Link} to='/search' eventKey="link-2">CarSearch</Nav.Link>
                 </Nav>
                 <NavDropdown title="Settings" id="basic-nav-dropdown" className='mr-4'>
