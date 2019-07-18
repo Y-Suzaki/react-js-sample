@@ -30,3 +30,20 @@ code {
 .btn-large {
   border-radius: 3px;
 }
+
+.form-control {
+  border-radius: 2px;
+}
+
+.card {
+  border-radius: 1px;
+}
+
+.nav-link-custom {
+  text-align: center;
+  border-right: 1px solid rgba(0, 0, 0, .1);
+}
+
+.nav-link-custom:hover {
+  background-color: darkgrey;
+}

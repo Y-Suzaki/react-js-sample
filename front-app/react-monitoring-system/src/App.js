@@ -17,13 +17,13 @@ import { Route, Link, NavLink } from "react-router-dom"
 class App extends React.Component {
     render() {
         return (
-            <Container fluid>
+            <Container fluid style={{backgroundColor: "#e9ecef"}}>
                 <Row className='bg-dark fixed-top'>
                     <Col>
                         <Header/>
                     </Col>
                 </Row>
-                <Row className="mt-5">
+                <Row className="pt-5">
                     <Col>
                         <Switch>
                             <Route path='/' component={Dashboard} exact={true}/>

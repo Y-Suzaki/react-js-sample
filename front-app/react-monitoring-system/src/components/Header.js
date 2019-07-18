@@ -4,25 +4,30 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from "react-router-dom";
 
-import Alarm from './Alarm';
-import CarDetail from './CarDetail';
-import CarSearch from './CarSearch';
-import Dashboard from './Dashboard';
-import UserAccount from './UserAccount';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTruckMonster } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+library.add(faTruckMonster);
 
 class Header extends React.Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand as={Link} to='/' exact={true}>TS-System</Navbar.Brand>
+            <Navbar bg="light" style={{height: 45}}>
+                {/*<Navbar.Brand as={Link} to='/' exact={true}>TS-System</Navbar.Brand>*/}
                 <Nav className="mr-auto">
-                    <Nav.Link as={Link} to='/' exact={true}　eventKey="link-2">Dashboard</Nav.Link>
-                    <Nav.Link as={Link} to='/search' eventKey="link-2">CarSearch</Nav.Link>
+                    <Nav.Link as={Link} to='/' exact={true}　eventKey="link-2" className='px-5 nav-link-custom'>
+                        <FontAwesomeIcon icon="truck-monster"/>
+                        <span className='ml-2'>Dashboard</span>
+                    </Nav.Link>
+                    <Nav.Link as={Link} to='/search' eventKey="link-2" className='px-5 nav-link-custom'>CarSearch</Nav.Link>
                 </Nav>
-                <NavDropdown title="Settings" id="basic-nav-dropdown" className='mr-4'>
-                    <NavDropdown.Item as={Link} to='/alarm'>Alarm</NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to='/users'>UserManagement</NavDropdown.Item>
-                </NavDropdown>
+                <Nav>
+                    <NavDropdown title="Settings" id="basic-nav-dropdown" className='mr-4'>
+                        <NavDropdown.Item as={Link} to='/alarm'>Alarm</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to='/users'>UserManagement</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
             </Navbar>
         )
     }
