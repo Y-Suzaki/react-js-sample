@@ -3,12 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { Link } from "react-router-dom";
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTruckMonster } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-library.add(faTruckMonster);
 
 class Header extends React.Component {
     render() {
@@ -20,7 +15,10 @@ class Header extends React.Component {
                         <FontAwesomeIcon icon="truck-monster"/>
                         <span className='ml-2'>Dashboard</span>
                     </Nav.Link>
-                    <Nav.Link as={Link} to='/search' eventKey="link-2" className='px-5 nav-link-custom'>CarSearch</Nav.Link>
+                    <Nav.Link as={Link} to='/search' eventKey="link-3" className='px-5 nav-link-custom'>
+                        <FontAwesomeIcon icon="truck-monster"/>
+                        <span className='ml-2'>CarSearch</span>
+                    </Nav.Link>
                 </Nav>
                 <Nav>
                     <NavDropdown title="Settings" id="basic-nav-dropdown" className='mr-4'>

@@ -14,6 +14,11 @@ import Col from 'react-bootstrap/Col'
 import {Switch} from "react-router-dom";
 import { Route, Link, NavLink } from "react-router-dom"
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTruckMonster, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTruckMonster, faChevronRight);
+
 class App extends React.Component {
     render() {
         return (

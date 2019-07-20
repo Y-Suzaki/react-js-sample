@@ -1,32 +1,11 @@
 import React from 'react';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import moment from 'moment';
-import { ResponsiveContainer, CartesianGrid, ReferenceLine, Tooltip, Legend, LineChart, Line, XAxis, YAxis } from 'recharts';
-
-const data = [
-    {
-        name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-    },
-    {
-        name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-    },
-    {
-        name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-    },
-    {
-        name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-    },
-    {
-        name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-    },
-    {
-        name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-    },
-    {
-        name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-    },
-];
+import { ResponsiveContainer, CartesianGrid, ReferenceLine, Tooltip, Legend, Area, AreaChart, LineChart, Line, XAxis, YAxis } from 'recharts';
 
 class CarDetail extends React.Component {
     constructor(props) {
@@ -65,99 +44,111 @@ class CarDetail extends React.Component {
 
     render() {
         return (
-            <div>
-                <CardDeck>
-                    <Card>
-                        <Card.Header as="h5">8-series Gran Coupe</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Serial No. C000001</Card.Title>
-                            <Card.Text>
-                                Sensor01/ Sensor02 / Sensor03 / Sensor04
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </CardDeck>
-                <CardDeck className='mt-2'>
-                    <Card style={{height: 300}}>
-                        <Card.Header>Sensor01</Card.Header>
-                        <ResponsiveContainer>
-                            <LineChart
-                                data={this.state.dataNormal}
-                                margin={{
-                                    top: 10, right: 20, left: 5, bottom: 5,
-                                }}>
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="date" tickFormatter={x => moment(x).format('MM/DD')}/>
-                                <YAxis unit='%'/>
-                                <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
-                                <Legend/>
-                                <ReferenceLine y="25" stroke="red" />
-                                <ReferenceLine y="50" stroke="#ffc658"/>
-                                <Line type="monotone" dataKey="wearRate" stroke="#413ea0" strokeWidth={2}/>
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </Card>
-                    <Card border="danger" style={{height: 300}}>
-                        <Card.Header>Sensor02</Card.Header>
-                        <ResponsiveContainer>
-                            <LineChart
-                                data={this.state.dataError}
-                                margin={{
-                                    top: 10, right: 20, left: 5, bottom: 5,
-                                }}>
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="date" tickFormatter={x => moment(x).format('MM/DD')}/>
-                                <YAxis unit='%'/>
-                                <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
-                                <Legend/>
-                                <ReferenceLine y="25" stroke="red"/>
-                                <ReferenceLine y="50" stroke="#ffc658"/>
-                                <Line type="monotone" dataKey="wearRate" stroke="#413ea0" strokeWidth={2}/>
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </Card>
-                </CardDeck>
-                <CardDeck className='mt-2'>
-                    <Card style={{height: 300}}>
-                        <Card.Header>Sensor03</Card.Header>
-                        <ResponsiveContainer>
-                            <LineChart
-                                data={this.state.dataNormal}
-                                margin={{
-                                    top: 10, right: 20, left: 5, bottom: 5,
-                                }}>
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="date" tickFormatter={x => moment(x).format('MM/DD')}/>
-                                <YAxis unit='%'/>
-                                <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
-                                <Legend/>
-                                <ReferenceLine y="25" stroke="red"/>
-                                <ReferenceLine y="50" stroke="#ffc658"/>
-                                <Line type="monotone" dataKey="wearRate" stroke="#413ea0" strokeWidth={2}/>
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </Card>
-                    <Card border="warning" style={{height: 300}}>
-                        <Card.Header>Sensor04</Card.Header>
-                        <ResponsiveContainer>
-                            <LineChart
-                                data={this.state.dataWarn}
-                                margin={{
-                                    top: 10, right: 20, left: 5, bottom: 5,
-                                }}>
-                                <CartesianGrid strokeDasharray="5 5" />
-                                <XAxis dataKey="date" tickFormatter={x => moment(x).format('MM/DD')}/>
-                                <YAxis unit='%'/>
-                                <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
-                                <Legend/>
-                                <ReferenceLine y="25" stroke="red"/>
-                                <ReferenceLine y="50" stroke="#ffc658"/>
-                                <Line type="monotone" dataKey="wearRate" stroke="#413ea0" strokeWidth={2}/>
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </Card>
-                </CardDeck>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col md={4}>
+                        <Card className='mt-4'>
+                            <Card.Header as="h5">8-series Gran Coupe</Card.Header>
+                            <Card.Body>
+                                <Card.Title>Serial No. C000001</Card.Title>
+                                <Card.Text>
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={8}>
+                        <CardDeck className='mt-4'>
+                            <Card style={{height: 300}}>
+                                <span className='mt-3 ml-3 text-muted'>Sensor001</span>
+                                <ResponsiveContainer>
+                                    <AreaChart
+                                        data={this.state.dataNormal}
+                                        margin={{
+                                            top: 5, right: 30, left: 5, bottom: 5,
+                                        }}>
+                                        <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
+                                        <YAxis tick={{fontSize: 10}} unit='%'/>
+                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
+                                        <ReferenceLine y="25" stroke="red" />
+                                        <ReferenceLine y="50" stroke="#ffc658"/>
+                                        <CartesianGrid strokeDasharray="1 1"/>
+                                        <Legend verticalAlign="top"/>
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </Card>
+                            <Card className='card-border-error'  style={{height: 300}}>
+                                <span className='mt-3 ml-3 text-muted'>Sensor001</span>
+                                <ResponsiveContainer>
+                                    <AreaChart
+                                        data={this.state.dataError}
+                                        margin={{
+                                            top: 5, right: 30, left: 5, bottom: 5,
+                                        }}>
+                                        <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
+                                        <YAxis tick={{fontSize: 10}} unit='%'/>
+                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip />
+                                        <ReferenceLine y="25" stroke="red" />
+                                        <ReferenceLine y="50" stroke="#ffc658"/>
+                                        <CartesianGrid strokeDasharray="1 1"/>
+                                        <Legend verticalAlign="top"/>
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </Card>
+                        </CardDeck>
+                        <CardDeck className='my-4'>
+                            <Card style={{height: 300}}>
+                                <span className='mt-3 ml-3 text-muted'>Sensor001</span>
+                                <ResponsiveContainer>
+                                    <AreaChart
+                                        data={this.state.dataNormal}
+                                        margin={{
+                                            top: 5, right: 30, left: 5, bottom: 5,
+                                        }}>
+                                        <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
+                                        <YAxis tick={{fontSize: 10}} unit='%'/>
+                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip />
+                                        <ReferenceLine y="25" stroke="red" />
+                                        <ReferenceLine y="50" stroke="#ffc658"/>
+                                        <CartesianGrid strokeDasharray="1 1"/>
+                                        <Legend verticalAlign="top"/>
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </Card>
+                            <Card border="warning" style={{height: 300}}>
+                                <span className='mt-3 ml-3 text-muted'>Sensor001</span>
+                                <ResponsiveContainer>
+                                    <AreaChart
+                                        data={this.state.dataWarn}
+                                        margin={{
+                                            top: 5, right: 30, left: 5, bottom: 5,
+                                        }}>
+                                        <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
+                                        <YAxis tick={{fontSize: 10}} unit='%'/>
+                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip />
+                                        <ReferenceLine y="25" stroke="red" />
+                                        <ReferenceLine y="50" stroke="#ffc658"/>
+                                        <CartesianGrid strokeDasharray="1 1"/>
+                                        <Legend verticalAlign="top"/>
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </Card>
+                        </CardDeck>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }
