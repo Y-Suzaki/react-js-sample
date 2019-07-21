@@ -15,9 +15,9 @@ import {Switch} from "react-router-dom";
 import { Route, Link, NavLink } from "react-router-dom"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTruckMonster, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faTruckMonster, faChevronRight, faFileExport, faTrashAlt, faEye, faEdit, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faTruckMonster, faChevronRight);
+library.add(faTruckMonster, faChevronRight, faFileExport, faTrashAlt, faEye, faEdit, faFileAlt);
 
 class App extends React.Component {
     render() {
@@ -29,6 +29,9 @@ class App extends React.Component {
                     </Col>
                 </Row>
                 <Row className="pt-5">
+                    <Col md={2} className='px-0'>
+                        <Menu/>
+                    </Col>
                     <Col>
                         <Switch>
                             <Route path='/' component={Dashboard} exact={true}/>

@@ -57,3 +57,18 @@ code {
 .icon-link-custom:hover {
   cursor : pointer;
 }
+
+.menu-link-custom-active {
+  background-color: lightblue;
+}
+
+.menu-link-custom-active:hover {
+  background-color: aquamarine;
+}
+
+.menu-link-custom-inactive {
+}
+
+.menu-link-custom-inactive:hover {
+  background-color: aquamarine;
+}
