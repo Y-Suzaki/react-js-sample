@@ -4,6 +4,9 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Badge from 'react-bootstrap/Badge'
+import car from './car.png';
 import moment from 'moment';
 import { ResponsiveContainer, CartesianGrid, ReferenceLine, Tooltip, Legend, Area, AreaChart, LineChart, Line, XAxis, YAxis } from 'recharts';
 
@@ -48,19 +51,27 @@ class CarDetail extends React.Component {
                 <Row>
                     <Col md={4}>
                         <Card className='mt-4'>
-                            <Card.Header as="h5">8-series Gran Coupe</Card.Header>
+                            <Card.Header as="h5" className='text-white p-2 text-center' style={{backgroundColor:"#428bca", opacity:0.5}}>TOYOTA CROWN C000001</Card.Header>
+                            <Card.Img variant="top" src={car} style={{width: 150}} className='py-3 mx-auto'/>
                             <Card.Body>
-                                <Card.Title>Serial No. C000001</Card.Title>
                                 <Card.Text>
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
-                                    Sensor01/ Sensor02 / Sensor03 / Sensor04
+                                    <ListGroup variant="flush">,
+                                        <ListGroup.Item className='d-flex justify-content-between'>
+                                            <div>事業所</div>
+                                            <div>東京第一</div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item className='d-flex justify-content-between'>
+                                            <div>登録日時</div>
+                                            <div>2019-07-10 12:12:12</div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item className='d-flex justify-content-between'>
+                                            <div>通信状態</div>
+                                            <div>
+                                                <Badge variant="primary">正常</Badge>
+                                                <Badge variant="danger">異常</Badge>
+                                            </div>
+                                        </ListGroup.Item>
+                                    </ListGroup>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -77,14 +88,17 @@ class CarDetail extends React.Component {
                                         }}>
                                         <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
                                         <YAxis tick={{fontSize: 10}} unit='%'/>
-                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
-                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')}/>
+                                        <Area dataKey="wearRate" stroke="#428bca" fill="#428bca" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')} wrapperStyle={{fontSize: 10}}/>
                                         <ReferenceLine y="25" stroke="red" />
                                         <ReferenceLine y="50" stroke="#ffc658"/>
                                         <CartesianGrid strokeDasharray="1 1"/>
-                                        <Legend verticalAlign="top"/>
+                                        <Legend verticalAlign="top" wrapperStyle={{fontSize: 10}}/>
                                     </AreaChart>
                                 </ResponsiveContainer>
+                                <Card.Footer className='p-2 bg-white'>
+                                    <span className='text-muted small'>Last Update 2019/11/11 12:12:12</span>
+                                </Card.Footer>
                             </Card>
                             <Card className='card-border-error'  style={{height: 300}}>
                                 <span className='mt-3 ml-3 text-muted'>Sensor001</span>
@@ -96,12 +110,12 @@ class CarDetail extends React.Component {
                                         }}>
                                         <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
                                         <YAxis tick={{fontSize: 10}} unit='%'/>
-                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
-                                        <Tooltip />
+                                        <Area dataKey="wearRate" stroke="#428bca" fill="#428bca" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')} wrapperStyle={{fontSize: 10}}/>
                                         <ReferenceLine y="25" stroke="red" />
                                         <ReferenceLine y="50" stroke="#ffc658"/>
                                         <CartesianGrid strokeDasharray="1 1"/>
-                                        <Legend verticalAlign="top"/>
+                                        <Legend verticalAlign="top" wrapperStyle={{fontSize: 10}}/>
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </Card>
@@ -117,12 +131,12 @@ class CarDetail extends React.Component {
                                         }}>
                                         <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
                                         <YAxis tick={{fontSize: 10}} unit='%'/>
-                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
-                                        <Tooltip />
+                                        <Area dataKey="wearRate" stroke="#428bca" fill="#428bca" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')} wrapperStyle={{fontSize: 10}}/>
                                         <ReferenceLine y="25" stroke="red" />
                                         <ReferenceLine y="50" stroke="#ffc658"/>
                                         <CartesianGrid strokeDasharray="1 1"/>
-                                        <Legend verticalAlign="top"/>
+                                        <Legend verticalAlign="top" wrapperStyle={{fontSize: 10}}/>
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </Card>
@@ -136,12 +150,12 @@ class CarDetail extends React.Component {
                                         }}>
                                         <XAxis dataKey="date" tick={{fontSize: 10}} tickFormatter={x => moment(x).format('MM/DD')}/>
                                         <YAxis tick={{fontSize: 10}} unit='%'/>
-                                        <Area dataKey="wearRate" stroke="#8884d8" fill="#8884d8" fillOpacity={0.2} strokeWidth={1}/>
-                                        <Tooltip />
+                                        <Area dataKey="wearRate" stroke="#428bca" fill="#428bca" fillOpacity={0.2} strokeWidth={1}/>
+                                        <Tooltip labelFormatter={x => moment(x).format('YYYY/MM/DD')} wrapperStyle={{fontSize: 10}}/>
                                         <ReferenceLine y="25" stroke="red" />
                                         <ReferenceLine y="50" stroke="#ffc658"/>
                                         <CartesianGrid strokeDasharray="1 1"/>
-                                        <Legend verticalAlign="top"/>
+                                        <Legend verticalAlign="top" wrapperStyle={{fontSize: 10}}/>
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </Card>
