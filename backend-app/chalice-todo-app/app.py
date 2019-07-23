@@ -1,5 +1,6 @@
 from chalice import Chalice
 from service.todo_service import ToDoService
+from domain.log_type import LogType
 import boto3
 import logging
 
@@ -20,7 +21,12 @@ def index():
         }
     )
     app.log.debug(response)
-    return {'hello': 'world'}
+    return LogType().__dict__
+
+
+@app.route('/log_type', methods=['POST'])
+def log_type():
+    pass
 
 # @app.route('/todos', methods=['POST'], cores=True)
 # def todos():
