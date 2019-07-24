@@ -32,6 +32,9 @@ class Logger:
     def warning(self, message, error_code):
         self.logger.warning(message, extra={'error_code': error_code})
 
+    def warning_with_trace(self, message, error_code):
+        self.logger.warning(message, extra={'error_code': error_code}, exc_info=True)
+
     def error(self, message, error_code):
         self.logger.error(message, extra={'error_code': error_code})
 

@@ -1,3 +1,4 @@
+from chalice import Response
 from logger.logger import Logger
 
 logger = Logger()
@@ -8,14 +9,26 @@ def except_handler(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        logger.info('except_handler start.')
         try:
-            logger.info('API started.', 'I0001')
             response = func(*args, **kwargs)
-            logger.info('API succeeded.', 'I0002')
             return response
         except ValueError as e:
-            logger.exception(e.args, 'W0001')
-            return {'message': e.args}
+            logger.info(e.args, 'I0001')
+            return Response(
+                body={'message': e.args},
+                status_code=400,
+                headers={'Content-Type': 'application/json'})
+        except ConnectionError as e:
+            logger.warning_with_trace(e.args, 'W0001')
+            return Response(
+                body={'message': e.args},
+                status_code=503,
+                headers={'Content-Type': 'application/json'})
+        except Exception as e:
+            logger.exception(e.args, 'E001')
+            return Response(
+                body={'message': e.args},
+                status_code=500,
+                headers={'Content-Type': 'application/json'})
     return wrapper
 
