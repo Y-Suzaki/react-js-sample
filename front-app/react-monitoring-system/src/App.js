@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import UserAccount from './components/UserAccount';
+import CarType from './components/CarType';
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -39,6 +40,7 @@ class App extends React.Component {
                             <Route path='/car' component={CarDetail} exact={true}/>
                             <Route path='/search' component={CarSearch} exact={true}/>
                             <Route path='/users' component={UserAccount} exact={true}/>
+                            <Route path='/car-type' component={CarType} exact={true}/>
                         </Switch>
                     </Col>
                 </Row>
