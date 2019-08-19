@@ -71,8 +71,9 @@ class App extends React.Component {
                 <Button onClick={this.handleConsole.bind(this)}>Console</Button>
               <Switch>
                   {/* 認証が不要なページは上部に追加すること */}
-                  {/*<Route path="/callback" exact={true} component={CallBack}/>*/}
-                  <Route path="/" component={WithAuth}/>
+                  {/*<Route path="/" exact={true} component={App}/>*/}
+                  <Route path="/logs" exact={true} component={Logs}/>
+                  <Route path="/users" component={WithAuth}/>
               </Switch>
             </div>
         );

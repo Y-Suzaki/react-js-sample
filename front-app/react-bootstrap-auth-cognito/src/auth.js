@@ -68,8 +68,16 @@ export class MySignUp extends SignUp {
 };
 
 export const getIdToken = async () => {
+    console.log("aaaaaaaaaaaaa");
     // Refresh Token周りの制御も下記で自動にやってくれるらしいが、未確認
-    const session = await Auth.currentSession();
+    let session = null;
+    try {
+        session = await Auth.currentSession();
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+    console.log(session);
     return session.getIdToken().getJwtToken();
 };
 
