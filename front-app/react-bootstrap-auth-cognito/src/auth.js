@@ -81,6 +81,12 @@ export const getIdToken = async () => {
     return session.getIdToken().getJwtToken();
 };
 
+export const login = async (user, password) => {
+    console.log(this.state);
+    const loginUser = await Auth.signIn(user, password);
+    console.log(loginUser)
+};
+
 export const signOut = async () => {
     await Auth.signOut();
 };
