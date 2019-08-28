@@ -61,8 +61,9 @@ return {
 ValidationResultsは複数で渡ってくるので、既存を複数上書きする必要がある。
 ```js
 case VALIDATE_FIELD:
-  action.key
-  action.validationResult
-  validationResults = xxxx
-  Objects.assgn({}, state, validationResults)
+  const newValidationResults = Object.assign({}, state.validationResults);
+  for (let [key, value] of Object.entries(action.validationResults)) {
+    newValidationResults[key] = value;
+  }
+  Object.assign({}, state, {validationResults: newValidationResults});
 ```
