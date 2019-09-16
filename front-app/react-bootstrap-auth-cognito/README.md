@@ -6,6 +6,13 @@
 * Domainの設定
     * Domain Prefix
         * ys-dev-web-userpool
+    * CLIで作成する場合
+      ```
+      aws cognito-idp create-user-pool-domain \
+        --domain ys-dev-web \
+        --user-pool-id us-west-2_xxxxxxxx \
+        --region us-west-2
+      ```
 * App client settingsの設定
     * Enabled Identity Providers
         * Cognito User Pool
@@ -18,6 +25,19 @@
             * Refreshトークンが入手可能
     * Allowed OAuth Scopes  
         * 全てチェックON
+    * CLIで作成する場合
+      ```
+      aws cognito-idp update-user-pool-client \
+        --user-pool-id us-west-2_xxxxxxxx \
+        --client-id xxxxxxxx \
+        --supported-identity-providers "COGNITO" \
+        --allowed-o-auth-flows "code" \
+	    --allowed-o-auth-scopes "phone" "openid" "email" "profile" "aws.cognito.signin.user.admin" \
+	    --allowed-o-auth-flows-user-pool-client
+	    --callback-urls '["http://localhost:3000/callback"]' \
+	    --logout-urls '["http://localhost:3000"]' \
+	    --region us-west-2
+      ```
 
 # 実装メモ
 ## Sign Up時
