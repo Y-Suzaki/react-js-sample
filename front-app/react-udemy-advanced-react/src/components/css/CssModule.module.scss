@@ -1,0 +1,28 @@
+.container {
+  border: solid 2px #392eff;
+  border-radius: 20px;
+  padding: 8px;
+  margin: 8px;
+  display: flex;  // コンポーネントを並列で配置
+  justify-content: space-around;  // フレキシブルボックスの中で等間隔で配置
+  align-items: center  // 中央配置
+}
+
+.title {
+  margin: 0;
+  color: #3d84a8;
+}
+
+.button {
+  background-color: #abedd8;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  // 以下はscssの構文
+  // css moduleと組み合わせて使うと、scssをそのままclassNameに設定できる。
+  &:hover {
+    background-color: deepskyblue;
+    color: #fff;
+    cursor: pointer;
+  }
+}
