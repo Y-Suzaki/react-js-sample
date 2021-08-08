@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { SearchInput } from '../molecules/SearchInput';
 import { UserCard } from '../organisms/user/UserCard';
+import { SecondaryButton } from '../atoms/button/SecondaryButton';
+import { useContext } from 'react';
+import { useRecoilState } from 'recoil';
+import { UserContext } from '../../providers/UserProvider';
+import { UserState } from '../../recoil/UserState';
 
 // ダミーデータのお便利作成方法
 const users = [...Array(10).keys()].map((x) => {
@@ -18,10 +24,34 @@ const users = [...Array(10).keys()].map((x) => {
 });
 
 export const Users = () => {
+  const { state } = useLocation();
+  const isAdmin = state ? state.isAdmin : false;
+
+  // RecoilからStateの取得
+  const [userInfoRecoil, setUserInfoRecoil] = useRecoilState(UserState);
+  console.log(`userInfoRecoil=${userInfoRecoil.isAdminRecoil}`);
+
+  // Global ContextからStateの取得
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const onClickChange = () => {
+    // Global Context
+    const isNewAdmin = userInfo ? !userInfo.isAdmin : false;
+    console.log(isNewAdmin);
+    setUserInfo({ isAdmin: isNewAdmin });
+
+    // Recoil
+    const isNewAdminRecoil = userInfoRecoil
+      ? !userInfoRecoil.isAdminRecoil
+      : false;
+    setUserInfoRecoil({ isAdminRecoil: isNewAdminRecoil });
+  };
+
   return (
     <SContainer>
       <h2>Users Page.</h2>
       <SearchInput />
+      <br />
+      <SecondaryButton onClick={onClickChange}>Change</SecondaryButton>
       <SUserArea>
         {users.map((user) => (
           <UserCard key={user.id} user={user} />

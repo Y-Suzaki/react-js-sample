@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { Card } from '../../atoms/card/card';
 import { UserIconWithName } from '../../molecules/user/UserIconWithName';
+import { memo } from 'react';
 
-export const UserCard = (props) => {
+// eslint-disable-next-line react/display-name
+export const UserCard = memo((props) => {
   const { user } = props;
+  console.log('Init UserCard.');
   return (
     <Card>
       <UserIconWithName image={user.image} name={user.name} />
@@ -19,7 +22,7 @@ export const UserCard = (props) => {
       </SDl>
     </Card>
   );
-};
+});
 
 const SDl = styled.dl`
   margin-bottom: 0;
